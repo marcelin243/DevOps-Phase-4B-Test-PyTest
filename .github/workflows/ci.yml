@@ -28,10 +28,6 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Set up database
-        run: |
-          python manage.py migrate  # Appliquer les migrations
-
       - name: Run tests and generate report
         run: |
           pytest tests.py --html=report.html  # Exécuter les tests avec pytest et générer un rapport HTML
