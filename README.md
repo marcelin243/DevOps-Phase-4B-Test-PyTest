@@ -76,6 +76,7 @@ class ProductViewSet(viewsets.ModelViewSet):
 Dans le fichier urls.py de votre application, configurez les routes pour accéder à vos vues.
 # myapp/urls.py
 
+
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 from .views import ProductViewSet
@@ -88,16 +89,25 @@ urlpatterns = [
 ]
 
 Ensuite, incluez les URL de votre application dans le fichier urls.py principal :
-
-# myproject/urls.py
-
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path,include,re_path
+from django.conf.urls.static import static
+from django.conf import settings
+from myapp.urls import router as myapp_router
+
+from rest_framework import routers
+
+router=routers.DefaultRouter()
+
+router.registry.extend(myapp_router.registry)
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('api/', include('myapp.urls')),  # Inclure les URL de l'application
-]
+    # re_path('admin/', admin.site.urls),
+    re_path('', include(router.urls)),
+    re_path('', include('myapp.urls'))
+    
+    
+]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 
 Étape 12 : Exécuter le Serveur de Développement
