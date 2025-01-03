@@ -1,0 +1,13 @@
+
+
+test_pytest/__pycache__/
+#
+media/
+
+
+myapp/__pycache__/
+myapp/migrations/
+myapp/__init__.py
+test_pytest/__init__.py
+
+
